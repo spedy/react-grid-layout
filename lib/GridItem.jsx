@@ -486,14 +486,14 @@ export default class GridItem extends React.Component<Props, State> {
     e,
     { node, deltaX, deltaY }
   ) => {
-    const { onDrag } = this.props;
+    const { onDrag, transformScale } = this.props;
     if (!onDrag) return;
 
     if (!this.state.dragging) {
       throw new Error("onDrag called before onDragStart.");
     }
-    let top = this.state.dragging.top + deltaY;
-    let left = this.state.dragging.left + deltaX;
+    let top = this.state.dragging.top + (deltaY / transformScale);
+    let left = this.state.dragging.left + (deltaX / transformScale);
 
     const { isBounded, i, w, h, containerWidth } = this.props;
     const positionParams = this.getPositionParams();
